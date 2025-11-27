@@ -6,4 +6,4 @@ provisioner:
       - name: test_component
         path: playbook.yml
         parameters:
-            # Add parameters that you expect to be set in the ResearchCloud portal
+          model: smollm:135m
