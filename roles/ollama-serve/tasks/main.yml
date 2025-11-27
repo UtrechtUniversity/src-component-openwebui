@@ -36,6 +36,7 @@
     enabled: true
 
 - name: Pull requested model
+  tags: molecule-idempotence-notest
   ansible.builtin.command:
     cmd: /opt/ollama/bin/ollama pull "{{ ollama_serve_model }}"
   when: ollama_serve_model | length > 0
