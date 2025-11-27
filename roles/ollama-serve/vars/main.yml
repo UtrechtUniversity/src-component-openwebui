@@ -1,0 +1,4 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for ollama-serve
+ollama_serve_tarball: https://github.com/ollama/ollama/releases/download/v{{ ollama_serve_version }}/ollama-linux-amd64.tgz

@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ANSIBLE_FORCE_COLOR: '1'
-      ANSIBLE_STDOUT_CALLBACK: yaml
+      ANSIBLE_RESULT_FORMAT: yaml
       CRUN_VER: 1.11.2
       REQUIREMENTS_FILE: molecule/ext/molecule-src/requirements.txt
       GALAXY_REQUIREMENTS_FILE: molecule/ext/molecule-src/requirements.yml

@@ -1,0 +1,43 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ollama-serve
+- name: ollama user
+  ansible.builtin.user:
+    name: ollama
+    system: true
+    create_home: true
+
+- name: Create model dir
+  ansible.builtin.file:
+    path: "{{ ollama_serve_model_dir }}"
+    state: directory
+    owner: ollama
+    group: ollama
+    mode: "0755"
+
+- name: Fetch and unarchive ollama
+  ansible.builtin.unarchive:
+    src: "{{ ollama_serve_tarball }}"
+    remote_src: true
+    dest: /opt/ollama
+    creates: /opt/ollama/bin/ollama
+
+- name: Place systemd config file
+  ansible.builtin.template:
+    dest: /etc/systemd/system/ollama-serve.service
+    src: templates/ollama-serve.service.j2
+    mode: "0644"
+
+- name: Run ollama service
+  ansible.builtin.systemd:
+    name: ollama-serve
+    state: started
+    daemon_reload: true
+    enabled: true
+
+- name: Pull requested model
+  tags: molecule-idempotence-notest
+  ansible.builtin.command:
+    cmd: /opt/ollama/bin/ollama pull "{{ ollama_serve_model }}"
+  when: ollama_serve_model | length > 0
+  delay: 10

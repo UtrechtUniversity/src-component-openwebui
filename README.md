@@ -58,13 +58,13 @@ To run `molecule`:
     * `pip install -r molecule/ext/molecule-src/requirements.txt`
 1. Install the Ansible dependencies:
     * `ansible-galaxy install -r requirements.yml`
-1. Run: `molecule -c molecule/ext/molecule-src/molecule.yml test`
+1. Run: `molecule -c molecule/ext/molecule-src/molecule.yml test --all`
 
-This will run the scenario in the `molecule/default` directory.
+This will run all scenarios in the `molecule/` directory.
 
 To add and run a new scenario, simply:
 
-1. Copy `molecule/default` into `molecule/<yourscenarioname>`.
+1. Copy `molecule/playbook-test` into `molecule/<yourscenarioname>`.
 1. Make your desired changes.
 1. Run: `molecule -c molecule/ext/molecule-src/molecule.yml test -s <yourscenarioname>`
 

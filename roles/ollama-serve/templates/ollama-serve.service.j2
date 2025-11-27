@@ -1,0 +1,16 @@
+[Unit]
+Description=Service for Ollama
+After=network.target
+
+[Service]
+User=ollama
+Group=ollama
+StandardOutput=append:/var/log/ollama.log
+StandardError=append:/var/log/ollama_err.log
+{% for var_name, value in ollama_serve_env.items() %}
+Environment="{{ var_name }}={{ value }}"
+{% endfor %}
+ExecStart=/opt/ollama/bin/ollama serve
+
+[Install]
+WantedBy=multi-user.target
