@@ -1,0 +1,7 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    # You can add tasks here to verify that everything is working as you expect.
+    # You can use e.g. the ansible.builtin.assert module for this

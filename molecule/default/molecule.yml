@@ -1,0 +1,9 @@
+---
+provisioner:
+  name: ansible
+  env:
+    components:
+      - name: test_component
+        path: playbook.yml
+        parameters:
+            # Add parameters that you expect to be set in the ResearchCloud portal

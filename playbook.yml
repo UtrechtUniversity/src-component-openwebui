@@ -1,0 +1,57 @@
+---
+- name: Example component
+  hosts: localhost # On ResearchCloud, the target host is always simply 'localhost'.
+  vars:
+    # You can define variables here.
+    # One use for this is to ensure that variables expected to be passed from the SRC portal have sane defaults.
+    # For example:
+    _src_component_foo: "{{ src_component_foo | default('fallback value') }}"
+    _src_component_bar: "Xone,Xtwo,Xthree"
+    _src_component_boolean: "{{ src_component_boolean | default(true, true) | bool }}"
+    # But of course you can also define ordinary variables:
+    testfile: /tmp/test
+    test_pip_packages: []
+  gather_facts: true
+
+  roles:
+    - role: uusrc.general.fact_regular_users
+
+  tasks:
+    # Some example tasks below to introduce Ansible
+
+    - name: Loop over all non-system users and display their names
+      ansible.builtin.debug:
+        msg: The user {{ item.user }} exists on the system.
+      with_items: "{{ fact_regular_users }}"
+      when: ansible_os_family == 'Debian' # we can use Ansible OS facts because we have set gather_facts to true
+
+    - name: This is a block of tasks that belong together
+      when: _src_component_boolean # this condition is applied to all tasks in the block
+      tags: molecule-idempotence-notest # same for tags
+      block:
+
+        - name: Copy some content to a file
+          ansible.builtin.copy:
+            dest: "{{ testfile }}"
+            mode: "0700"
+            owner: root
+            group: root
+            content: "{{ _src_component_bar | split | map('regex_replace', 'X', '') | join }}" # You can create pipes using filters
+            # src: foo.txt # instead of 'content', you can also pass the 'src' argument to copy an entire file
+
+        - name: Cat the contents of this file
+          ansible.builtin.command:
+            cmd: cat {{ testfile }}
+          register: cat_testfile # store the results of this module in a new variable
+
+        - name: Debug the results of our cat command
+          ansible.builtin.debug:
+            var: cat_testfile.stdout
+
+        - name: Unlike the command module, shell module can use shell features like redirection
+          ansible.builtin.shell:
+            cmd: cat {{ testfile }} > /tmp/test2
+
+    - name: Install a number of pip packages
+      ansible.builtin.pip: # the pip module has many useful arguments, for instance related to venvs
+        name: "{{ test_pip_packages }}"

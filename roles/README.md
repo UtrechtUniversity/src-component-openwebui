@@ -1,0 +1,1 @@
+You can optionally copy roles that you want to use to this directory. While it is recommended to declare roles as dependencies in `requirements.yml`, this may not be possible in certain cases (for example, if the role is not in a public git repository).

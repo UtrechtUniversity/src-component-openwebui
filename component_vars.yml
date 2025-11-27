@@ -1,0 +1,3 @@
+---
+# Variables defined in this file will be passed along to Ansible when using the 'run_component.sh' script on the test container
+src_component_var: hello world

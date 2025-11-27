@@ -1,0 +1,38 @@
+name: ansible-lint
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'molecule/**'
+      - 'tasks/**'
+      - 'roles/**'
+      - 'vars/**'
+      - '*.yml'
+      - '*.yaml'
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    paths:
+      - 'molecule/**'
+      - 'tasks/**'
+      - 'roles/**'
+      - 'vars/**'
+      - '*.yml'
+      - '*.yaml'
+
+jobs:
+  build:
+    name: Ansible Lint # Naming the build is important to use it as a status check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        with:
+          args: "."
