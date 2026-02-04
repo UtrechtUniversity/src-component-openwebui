@@ -1,0 +1,16 @@
+[Unit]
+Description=Service for openwebui
+After=network.target ollama.service
+
+[Service]
+User=openwebui
+WorkingDirectory=/home/openwebui
+{% for var_name, value in openwebui_env.items() %}
+Environment="{{ var_name }}={{ value }}"
+{% endfor %}
+ExecStart=/bin/sh -c 'source /.venv/bin/activate && open-webui serve'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
