@@ -1,0 +1,5 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for install-dependencies
+dependencies:
+- name: open-webui
