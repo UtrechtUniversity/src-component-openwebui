@@ -10,7 +10,7 @@ driver:
         password: $DOCKER_PW
 platforms: # Test on ubuntu jammy by default
   - name: workspace-src-ubuntu_jammy
-    image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_jammy
+    image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_jammy-nginx
     command: /sbin/init
     <<: *image_settings
 provisioner:

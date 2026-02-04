@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for openwebui
+openwebui_url: http://localhost:3000
+openwebui_ollama_extra_servers: []
+openwebui_env:
+  WEBUI_AUTH_TRUSTED_NAME_HEADER: REMOTE_USER
+  WEBUI_AUTH_TRUSTED_EMAIL_HEADER: X-Remote-User-Mail
+  WEBUI_URL: "{{ openwebui_url }}"
+  OLLAMA_BASE_URLS: http://localhost:11434
+  DEFAULT_USER_ROLE: admin
+  ENABLE_LOGIN_FORM: false
+  ENABLE_PASSWORD_AUTH: false
