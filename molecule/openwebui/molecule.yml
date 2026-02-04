@@ -10,8 +10,12 @@ driver:
         password: $DOCKER_PW
 platforms: # Test on ubuntu jammy by default
   - name: workspace-src-ubuntu_jammy
+<<<<<<< add_openwebui_role
+    image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_jammy-nginx
+=======
     image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_jammy
     command: /sbin/init
+>>>>>>> main
     <<: *image_settings
 provisioner:
   name: ansible
