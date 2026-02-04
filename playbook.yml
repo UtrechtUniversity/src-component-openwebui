@@ -10,3 +10,10 @@
       vars:
         ollama_serve_model: "{{ model }}"
         ollama_serve_version: "{{ ollama_version | default('0.12.10', true) }}"
+    - role: openwebui
+    - role: uusrc.general.nginx_reverse_proxy
+      vars:
+        location: /
+        auth: sram
+        proxy_pass: http://localhost:3000
+        proxy_set_header: X-Remote-User-Mail $username@localhost
