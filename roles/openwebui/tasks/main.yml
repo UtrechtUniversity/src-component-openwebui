@@ -13,3 +13,16 @@
         state: present
         shell: /bin/bash
         createhome: yes
+
+- name: Place systemd config file
+  ansible.builtin.template:
+    dest: /etc/systemd/system/openwebui-serve.service
+    src: templates/openwebui-serve.service.j2
+    mode: "0644"
+
+- name: Run openwebui service
+  ansible.builtin.systemd:
+    name: openwebui-serve
+    state: started
+    daemon_reload: true
+    enabled: true
