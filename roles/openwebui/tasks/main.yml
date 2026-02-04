@@ -3,16 +3,11 @@
 # tasks file for openwebui
 # add user task
 
-- name: Install openwebui
-  hosts: all
-  become: true
-  tasks:
-    - name: Add user 'openwebui'
-      ansible.builtin.user:
-        name: openwebui
-        state: present
-        shell: /bin/bash
-        createhome: yes
+- name: Add user 'openwebui'
+  ansible.builtin.user:
+    name: openwebui
+    system: true
+    createhome: true
 
 - name: Place systemd config file
   ansible.builtin.template:
