@@ -1,0 +1,14 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for openwebui
+
+- name: Install openwebui
+  hosts: all
+  become: true
+  tasks:
+    - name: Add user 'openwebui'
+      ansible.builtin.user:
+        name: openwebui
+        state: present
+        shell: /bin/bash
+        createhome: yes
