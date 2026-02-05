@@ -17,6 +17,8 @@
       path: "{{ openwebui_venv }}"
       python: '3.11'
     uv_python_versions: [ '3.11' ]
+    uv_become: true
+    uv_become_user: openwebui
 
 - name: Install openwebui in venv
   ansible.builtin.command: uv pip install open-webui
