@@ -4,14 +4,7 @@
     - all
     - localhost
   gather_facts: true
-  vars: {}
   roles:
-    - role: uusrc.general.uv
-      vars:
-        uv_vens: { path: '/.venv', python: '3.11' }
-        uv_python_versions: [ '3.11' ]
-        # uv_become: false
-        # uv_become_user: 
     - role: ollama-serve
       vars:
         ollama_serve_model: "{{ model }}"

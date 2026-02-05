@@ -1,3 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # vars file for openwebui
+openwebui_home: /var/www/openwebui
+openwebui_venv: "{{ openwebui_home }}/venv"
