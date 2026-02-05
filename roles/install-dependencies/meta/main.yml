@@ -1,6 +1,0 @@
-#SPDX-License-Identifier: MIT-0
-galaxy_info:
-  author: Jelle Treep & Dawa Ometto & Farshad Radman & Slawa Loev
-  description: install dependencies with uv
-  license: MIT
-  min_ansible_version: 2.1
