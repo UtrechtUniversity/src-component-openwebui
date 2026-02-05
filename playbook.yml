@@ -19,8 +19,9 @@
     - role: openwebui
     - role: uusrc.general.nginx_reverse_proxy
       vars:
-        location: /
-        auth: sram
-        proxy_pass: http://localhost:3000
-        proxy_set_header: X-Remote-User-Mail $username@localhost
-
+        nginx_reverse_proxy_locations:
+          - name: openwebui
+            location: /
+            auth: sram
+            proxy_pass: http://localhost:3000
+            # proxy_set_header: "X-Remote-User-Mail $username@localhost"
