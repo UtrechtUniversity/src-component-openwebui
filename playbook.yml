@@ -3,7 +3,7 @@
   hosts:
     - all
     - localhost
-  gather_facts: false
+  gather_facts: true
   vars: {}
   roles:
     - role: uusrc.general.uv
