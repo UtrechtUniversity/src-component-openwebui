@@ -23,6 +23,7 @@
     creates: /opt/ollama/bin/ollama
 
 - name: Place systemd config file
+  notify: Reload ollama service
   ansible.builtin.template:
     dest: /etc/systemd/system/ollama-serve.service
     src: templates/ollama-serve.service.j2
@@ -32,7 +33,6 @@
   ansible.builtin.systemd:
     name: ollama-serve
     state: started
-    daemon_reload: true
     enabled: true
 
 - name: Pull requested model
