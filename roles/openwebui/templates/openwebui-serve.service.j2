@@ -4,7 +4,7 @@ After=network.target ollama.service
 
 [Service]
 User=openwebui
-WorkingDirectory=/home/openwebui
+WorkingDirectory="{{ openwebui_home }}"
 {% for var_name, value in openwebui_env.items() %}
 Environment="{{ var_name }}={{ value }}"
 {% endfor %}
