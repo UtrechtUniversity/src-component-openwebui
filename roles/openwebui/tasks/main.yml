@@ -14,6 +14,8 @@
   ansible.builtin.include_role:
     name: uusrc.general.uv
   vars:
+    uv_become: true
+    uv_become_user: openwebui
     uv_venvs:
       - path: "{{ openwebui_venv }}"
         python: '3.11'
