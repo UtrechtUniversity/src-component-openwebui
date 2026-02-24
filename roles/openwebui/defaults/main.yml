@@ -5,7 +5,7 @@ openwebui_url: http://localhost:8080
 openwebui_port: 8080
 openwebui_ollama_extra_servers: []
 openwebui_env:
-  WEBUI_AUTH_TRUSTED_NAME_HEADER: X-Remote-User
+  WEBUI_AUTH_TRUSTED_NAME_HEADER: REMOTE_USER
   WEBUI_AUTH_TRUSTED_EMAIL_HEADER: X-Remote-User-Mail
   WEBUI_URL: "{{ openwebui_url }}"
   OLLAMA_BASE_URLS: http://localhost:11434

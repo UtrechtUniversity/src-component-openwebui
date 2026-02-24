@@ -25,4 +25,3 @@
             proxy_pass: http://localhost:8080
             proxy_set_header:
               X-Remote-User-Mail: $username@localhost
-              X-Remote-User: $username
