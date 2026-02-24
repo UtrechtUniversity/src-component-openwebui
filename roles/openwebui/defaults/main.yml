@@ -10,6 +10,4 @@ openwebui_env:
   WEBUI_URL: "{{ openwebui_url }}"
   OLLAMA_BASE_URLS: http://localhost:11434
   DEFAULT_USER_ROLE: admin
-  ENABLE_LOGIN_FORM: false
-  ENABLE_PASSWORD_AUTH: false
   CORS_ALLOW_ORIGIN: "{{ openwebui_url }}"
