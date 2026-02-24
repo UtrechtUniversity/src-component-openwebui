@@ -17,6 +17,8 @@
         ollama_serve_model: "{{ model }}"
         ollama_serve_version: "{{ ollama_version | default('0.12.10', true) }}"
     - role: openwebui
+      vars:
+        ollama_serve_fqdn: "https://{{ workspace_fqdn }}" # workspace_fqdn is a special component parameter defined in SRC
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_locations:

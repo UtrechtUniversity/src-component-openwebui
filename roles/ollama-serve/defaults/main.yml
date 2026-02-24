@@ -1,9 +1,11 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for ollama-serve
+ollama_serve_fqdn: "http://localhost:3000"
 ollama_serve_model_dir: /opt/ollama/models
 ollama_serve_env:
   OLLAMA_FLASH_ATTENTION: "1"
   OLLAMA_MODELS: "{{ ollama_serve_model_dir }}"
+  CORS_ALLOW_ORIGIN: "{{ ollama_serve_fqdn }}"
 ollama_serve_model: ""
 ollama_serve_version: 12.0.10
