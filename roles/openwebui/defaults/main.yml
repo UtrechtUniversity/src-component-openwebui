@@ -1,7 +1,8 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for openwebui
-openwebui_url: http://localhost:3000
+openwebui_url: http://localhost:8080
+openwebui_port: 8080
 openwebui_ollama_extra_servers: []
 openwebui_env:
   WEBUI_AUTH_TRUSTED_NAME_HEADER: REMOTE_USER
@@ -11,3 +12,4 @@ openwebui_env:
   DEFAULT_USER_ROLE: admin
   ENABLE_LOGIN_FORM: false
   ENABLE_PASSWORD_AUTH: false
+  CORS_ALLOW_ORIGIN: "{{ openwebui_url }}"

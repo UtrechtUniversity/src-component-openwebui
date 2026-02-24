@@ -3,6 +3,9 @@
   hosts:
     - all
     - localhost
+  vars:
+    _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
+    _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
   gather_facts: true
   roles:
     - role: ollama-serve
@@ -11,13 +14,14 @@
         ollama_serve_version: "{{ ollama_version | default('0.12.10', true) }}"
     - role: openwebui
       vars:
-        ollama_serve_fqdn: "https://{{ workspace_fqdn }}" # workspace_fqdn is a special component parameter defined in SRC
+        openwebui_url: "{{ _openwebui_url }}"
+        openwebui_port: 8080
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_locations:
           - name: openwebui
             location: /
             auth: sram
-            proxy_pass: http://localhost:3000
+            proxy_pass: http://localhost:8080
             proxy_set_header:
               X-Remote-User-Mail: $username@localhost
