@@ -11,7 +11,8 @@
     home: "{{ openwebui_home }}"
 
 - name: Install uv
-  ansible.builtin.include_role: uusrc.general.uv
+  ansible.builtin.include_role:
+    name: uusrc.general.uv
   vars:
     uv_venvs:
       path: "{{ openwebui_venv }}"
