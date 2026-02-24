@@ -8,7 +8,7 @@ WorkingDirectory=/home/openwebui
 {% for var_name, value in openwebui_env.items() %}
 Environment="{{ var_name }}={{ value }}"
 {% endfor %}
-ExecStart=/bin/sh -c 'source /.venv/bin/activate && open-webui serve'
+ExecStart={{ openwebui_venv }}/bin/open-webui serve
 Restart=always
 
 [Install]

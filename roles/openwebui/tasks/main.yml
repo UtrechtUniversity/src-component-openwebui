@@ -8,6 +8,21 @@
     name: openwebui
     system: true
     createhome: true
+    home: "{{ openwebui_home }}"
+
+- name: Install uv
+  ansible.builtin.include_role:
+    name: uusrc.general.uv
+  vars:
+    uv_venvs:
+      - path: "{{ openwebui_venv }}"
+        python: '3.11'
+    uv_python_versions: [ '3.11' ]
+
+- name: Install openwebui in venv
+  ansible.builtin.command: uv pip install open-webui
+  environment:
+    VIRTUAL_ENV: "{{ openwebui_venv }}"
 
 - name: Place systemd config file
   ansible.builtin.template:
