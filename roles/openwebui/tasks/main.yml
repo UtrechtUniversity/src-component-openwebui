@@ -15,8 +15,8 @@
     name: uusrc.general.uv
   vars:
     uv_venvs:
-      path: "{{ openwebui_venv }}"
-      python: '3.11'
+      - path: "{{ openwebui_venv }}"
+        python: '3.11'
     uv_python_versions: [ '3.11' ]
 
 - name: Install openwebui in venv
