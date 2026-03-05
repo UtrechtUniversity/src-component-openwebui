@@ -21,10 +21,16 @@
         python: '3.11'
     uv_python_versions: [ '3.11' ]
 
+- name: Place requirements file # we place our openwebui requirements in a requirements.txt, so that we can keep them up to date with dependabot.
+  ansible.builtin.file:
+    dest: /tmp/openwebui_requirements.txt
+    src: files/requirements.txt
+    mode: "0644"
+
 - name: Install openwebui in venv
   become: true
   become_user: openwebui
-  ansible.builtin.command: uv pip install open-webui
+  ansible.builtin.command: uv pip install --requirements /tmp/openwebui_requirements.txt
   environment:
     VIRTUAL_ENV: "{{ openwebui_venv }}"
 
