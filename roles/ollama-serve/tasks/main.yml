@@ -1,6 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for ollama-serve
+
 - name: ollama user
   ansible.builtin.user:
     name: ollama
@@ -9,7 +10,7 @@
 
 - name: Create model dir
   ansible.builtin.file:
-    path: "{{ ollama_serve_model_dir }}"
+    path: "{{ ollama_serve_model_storage_path }}"
     state: directory
     owner: ollama
     group: ollama
