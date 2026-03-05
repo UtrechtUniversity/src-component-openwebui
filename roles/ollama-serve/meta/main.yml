@@ -4,3 +4,5 @@ galaxy_info:
   description: serve ollama
   license: MIT
   min_ansible_version: 2.1
+dependencies:
+  - uusrc.general.fact_workspace_info
