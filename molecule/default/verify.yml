@@ -1,0 +1,29 @@
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Make sure API is up and exposed
+      ansible.builtin.uri:
+        url: "http://localhost:80/api/version"
+      register: openwebui_service_live
+      until: "openwebui_service_live.status == 200"
+      retries: 10
+      delay: 10 # check every 10 seconds for a maximum of 5 minutes
+
+    - name: Test app with and without auth
+      ansible.builtin.uri:
+        url: http://localhost:8080/api/v1/auths/signin
+        method: POST
+        status_code: "{{ item.expected }}"
+        follow_redirects: true
+        body_format: json
+        body:
+          email: ""
+          password: ""
+        headers: "{{ item.headers | default(omit) }}"
+      with_items:
+        - headers:
+            X-Remote-User-Mail: testuser
+          expected: 200
+        - expected: 400 # bad request in case no trusted header is set
