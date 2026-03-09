@@ -10,7 +10,7 @@
     - role: ollama-serve
       vars:
         ollama_serve_model: "{{ model }}"
-        ollama_serve_version: "{{ ollama_version | default('0.12.10', true) }}"
+        ollama_serve_version: "{{ ollama_version | default('') }}"
         ollama_serve_use_external_storage: "{{ ollama_use_external_storage | default(true, true) | bool }}"
     - role: openwebui
       vars:
