@@ -1,7 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for ollama-serve
-ollama_serve_model_base_dir: /opt/ollama/models
+ollama_serve_model_base_dir: /opt/
 ollama_serve_use_external_storage: true
 ollama_serve_env:
   OLLAMA_FLASH_ATTENTION: "1"
