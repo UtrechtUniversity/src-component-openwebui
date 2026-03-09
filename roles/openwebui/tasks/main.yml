@@ -22,7 +22,7 @@
     uv_python_versions: [ '3.11' ]
 
 - name: Place requirements file # we place our openwebui requirements in a requirements.txt, so that we can keep them up to date with dependabot.
-  ansible.builtin.file:
+  ansible.builtin.copy:
     dest: /tmp/openwebui_requirements.txt
     src: files/requirements.txt
     mode: "0644"
