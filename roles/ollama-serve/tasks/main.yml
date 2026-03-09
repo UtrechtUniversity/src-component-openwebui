@@ -8,13 +8,16 @@
     system: true
     create_home: true
 
-- name: Create model dir
+- name: Create ollama dir and model dir
   ansible.builtin.file:
-    path: "{{ ollama_serve_model_storage_path }}"
+    path: "{{ item }}"
     state: directory
     owner: ollama
     group: ollama
     mode: "0755"
+  with_items:
+    - /opt/ollama
+    - "{{ ollama_serve_model_storage_path }}" # can be different from /opt/ollama if external storage is used
 
 - name: Install zstd for unarchiving # ollama is served as a zstd file, Ansible's unarchive module depends on this package.
   ansible.builtin.package:
