@@ -26,6 +26,6 @@
             proxy_set_header:
               X-Remote-User-Mail: $username@localhost
           - name: api
-            location: /api/
+            location: /ext/api/ # serve the api under a special route to connect to it directly (instead of via the UI)
             auth: "{{ expose_api | default(true, true) | bool | ternary('noauth', 'sram') }}"
             proxy_pass: http://localhost:8080/api/

@@ -16,6 +16,7 @@ You can request access to a catalog item that utilises this component [here](htt
 * [Ollama](https://ollama.com/) runs as a model backend on `http://localhost:3000`.
 * Open WebUI runs on `http://localhost:3000`.
 * Nginx reverse proxies inbound https to Open WebUI.
+  * If desired, the API is also reverse proxied under `http://<workspace_name>/ext/api`, allowing you to bypass SRAM authentication and use API keys to connect directly to the API.
 
 ### Authentication
 
@@ -32,7 +33,7 @@ The component takes the following parameters:
 * `model`: String. A default Ollama model to pull at workspace creation (you can pull more models yourself after the workspace is running). Leave empty for none.
 * `ollama_version`: String. Version of Ollama to install, e.g. `0.17.7`. Leave empty for latest version.
 * `ollama_use_external_storage`: Boolean (default: `true`). In case this is true, and in case an SRC Storage Unit is attached to the workspace, will use that storage unit to store Ollama data (including models). This allows pulling larger models than fit on the workspace's internal storage.
-* `expose_api`: Boolean (default: `true`). Whether the reverse proxy should let through traffic to Open WebUI's API without SRAM authentication. This allows you to use the API from outside of the workspace for automated worklows.
+* `expose_api`: Boolean (default: `true`). Whether the reverse proxy should serve Open WebUI's API at the route `http://<workspace_name>/ext/api`. This will let through traffic to Open WebUI's API without SRAM authentication, allowing you to use the API from outside of the workspace for automated worklows.
 
 ## Maintenance
 
