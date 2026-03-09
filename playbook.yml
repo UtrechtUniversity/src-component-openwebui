@@ -29,3 +29,5 @@
             location: /ext/api/ # serve the api under a special route to connect to it directly (instead of via the UI)
             auth: "{{ expose_api | default(true, true) | bool | ternary('noauth', 'sram') }}"
             proxy_pass: http://localhost:8080/api/
+            proxy_set_header:
+              X-Remote-User-Mail: '""' # ensure outside clients cannot set a trusted header
