@@ -1,5 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # vars file for ollama-serve
-ollama_serve_tarball: https://github.com/ollama/ollama/releases/download/v{{ ollama_serve_version }}/ollama-linux-amd64.tgz
+ollama_serve_tarball: https://ollama.com/download/ollama-linux-amd64.tar.zst{% if (ollama_serve_version | length) > 0 %}?version={{ ollama_serve_version }}{% endif %}
 ollama_serve_model_storage_path: "{{ (ollama_serve_use_external_storage and (fact_workspace_storage[0]['mount'] | default(false, true))) or ollama_serve_model_base_dir }}/ollama/models" # if set to use external storage, and an external storage was found, use the first external storage as the base path. Otherwise, use /opt/ as the base path. Append "/ollama/models" to the base path to obtain the final path where models will be stored.

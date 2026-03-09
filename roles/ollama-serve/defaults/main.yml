@@ -7,4 +7,4 @@ ollama_serve_env:
   OLLAMA_FLASH_ATTENTION: "1"
   OLLAMA_MODELS: "{{ ollama_serve_model_storage_path }}"
 ollama_serve_model: ""
-ollama_serve_version: 12.0.10
+ollama_serve_version: "" # latest by default
