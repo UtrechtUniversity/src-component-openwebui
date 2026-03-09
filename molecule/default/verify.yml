@@ -5,7 +5,7 @@
   tasks:
     - name: Make sure API is up and exposed
       ansible.builtin.uri:
-        url: "http://localhost:80/api/version"
+        url: "http://localhost:80/ext/api/version"
       register: openwebui_service_live
       until: "openwebui_service_live.status == 200"
       retries: 10
