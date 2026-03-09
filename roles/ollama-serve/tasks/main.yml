@@ -16,6 +16,11 @@
     group: ollama
     mode: "0755"
 
+- name: Install zstd for unarchiving # ollama is served as a zstd file, Ansible's unarchive module depends on this package.
+  ansible.builtin.package:
+    name: zstd
+    state: present
+
 - name: Fetch and unarchive ollama
   ansible.builtin.unarchive:
     src: "{{ ollama_serve_tarball }}"
