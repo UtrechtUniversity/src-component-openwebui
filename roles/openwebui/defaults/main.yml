@@ -11,3 +11,4 @@ openwebui_env:
   OLLAMA_BASE_URLS: http://localhost:11434
   DEFAULT_USER_ROLE: admin
   CORS_ALLOW_ORIGIN: "{{ openwebui_url }}"
+  USE_CUDA: True
