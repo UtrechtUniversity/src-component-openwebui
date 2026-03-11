@@ -1,3 +1,3 @@
 # We use this file to track our open-webui dependencies.
 # This allows us to use dependabot to keep the versions up to date (as opposed to specifying version in a playbook).
-open-webui~=0.0,=0.8.8
+open-webui~=0.0,==0.8.8
