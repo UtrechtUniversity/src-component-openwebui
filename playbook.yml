@@ -1,5 +1,5 @@
 ---
-- name: Install and configure ollama serve
+- name: Install and configure ollama and openwebui
   hosts:
     - all
   vars:
