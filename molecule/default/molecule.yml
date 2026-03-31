@@ -9,8 +9,8 @@ driver:
         username: $DOCKER_USER
         password: $DOCKER_PW
 platforms:
-  - name: workspace-src-ubuntu_jammy
-    image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_jammy-nginx
+  - name: workspace-src-ubuntu_noble
+    image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_noble-nginx
     <<: *image_settings
     command: /sbin/init
     volumes:
