@@ -1,3 +1,9 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # handlers file for ollama-serve
+- name: Reload and run ollama service
+  ansible.builtin.systemd:
+    name: ollama-serve
+    state: started
+    daemon_reload: true
+    enabled: true
