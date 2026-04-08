@@ -28,6 +28,9 @@ provisioner:
       - name: openwebui
         path: playbook.yml
         parameters:
+          api_credentials: |
+            - { name: openwebui, username: foo, password: bar}
+          expose_api: true
           model: "" # don't pull a model in CI
           workspace_fqdn: localhost
 scenario:

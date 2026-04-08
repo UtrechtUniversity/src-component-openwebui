@@ -1,0 +1,17 @@
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Test api with basic auth
+      ansible.builtin.uri:
+        url: http://localhost:80/ext/api/version
+        follow_redirects: true
+        url_username: foo
+        url_password: bar        
+
+    - name: Test api without basic auth
+      ansible.builtin.uri:
+        url: http://localhost:80/ext/api/version
+        follow_redirects: true
+        status_code: 401
