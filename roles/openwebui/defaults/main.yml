@@ -4,6 +4,8 @@
 openwebui_url: http://localhost:8080
 openwebui_port: 8080
 openwebui_ollama_extra_servers: []
+openwebui_expose_api: false
+openwebui_user_access_api: true
 openwebui_env:
   WEBUI_AUTH_TRUSTED_NAME_HEADER: REMOTE_USER
   WEBUI_AUTH_TRUSTED_EMAIL_HEADER: X-Remote-User-Mail
@@ -12,3 +14,5 @@ openwebui_env:
   DEFAULT_USER_ROLE: admin
   CORS_ALLOW_ORIGIN: "{{ openwebui_url }}"
   USE_CUDA: True
+  ENABLE_API_KEYS: "{{ openwebui_expose_api }}"
+  USER_PERMISSIONS_FEATURES_API_KEYS: "{{ openwebui_user_access_api }}"
