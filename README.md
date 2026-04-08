@@ -24,7 +24,11 @@ The server is configured to let the webserver (Nginx) handle authentication. The
 
 Any members of the workspace's Collaborative Organisation (CO) will be able to authenticate using the authentication mechanism of their institution (Single Sign-On). At the moment all members of the collaboration will be considered admins for Open WebUI. Support for finer-grained access management via SRAM is tracked [here](https://github.com/UtrechtUniversity/src-component-openwebui/issues/19).
 
-If desired, the Open WebUI [API](https://docs.openwebui.com/reference/monitoring/) is exposed by Nginx, without SRAM authentication (see [parameters](#ResearchCloud-parameters) below). You'll need to set API keys for your user in Open WebUI, and use them when making requests.
+# API
+
+If desired, the Open WebUI [API](https://docs.openwebui.com/reference/monitoring/) is exposed by Nginx, without SRAM authentication. To do this, set the `expose_api` [parameter](#ResearchCloud-parameters) to `true`.
+
+If the API is enabled, then by default, **both normal users and admin users can use the API**. They will still need to [set API keys for your user in Open WebUI](https://docs.openwebui.com/features/authentication-access/api-keys/#step-3-generate-a-key), and use them when making requests. To allow **only admin users to use the API**, set the `normal_users_api_access` parameter to `false`.
 
 ## ResearchCloud parameters
 
