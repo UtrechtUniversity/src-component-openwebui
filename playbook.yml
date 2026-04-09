@@ -25,7 +25,7 @@
           {% if _api_credentials %}
           {{ [{'name': 'openwebui', 'username': _api_credentials[0], 'password': _api_credentials[1]}] }} 
           {% else %}
-          {{ omit }}
+          {{ [{}] }}
           {% endif %}
         nginx_reverse_proxy_locations:
           - name: openwebui
