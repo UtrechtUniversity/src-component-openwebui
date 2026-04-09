@@ -3,6 +3,14 @@
   gather_facts: false
 
   tasks:
+    - name: Make sure API is up (but not exposed)
+      ansible.builtin.uri:
+        url: "http://localhost:80/ext/api/version"
+      register: openwebui_service_live
+      until: "openwebui_service_live.status == 401"
+      retries: 10
+      delay: 10 # check every 10 seconds for a maximum of 5 minutes
+
     - name: Test app with and without auth
       ansible.builtin.uri:
         url: http://localhost:8080/api/v1/auths/signin
