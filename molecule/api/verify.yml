@@ -3,12 +3,16 @@
   gather_facts: false
 
   tasks:
-    - name: Test api with basic auth
+    - name: Wait until api is up
       ansible.builtin.uri:
         url: http://localhost:80/ext/api/version
         follow_redirects: true
         url_username: foo
-        url_password: bar        
+        url_password: bar
+      register: wait_for_api
+      until: "wait_for_api.status == 200"
+      retries: 10
+      delay: 5 # check every 5 seconds for a maximum of 5 minutes
 
     - name: Test api without basic auth
       ansible.builtin.uri:
