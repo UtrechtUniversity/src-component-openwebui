@@ -41,4 +41,4 @@
           {% else %}
           {{ [{}] }}
           {% endif %}
-        nginx_reverse_proxy_locations: "{{ _expose_api | ternary([_openwebui_vhost, _api_vhost], [_openwebui_vhost]) }}
+        nginx_reverse_proxy_locations: "{{ _expose_api | ternary([_openwebui_vhost, _api_vhost], [_openwebui_vhost]) }}"
