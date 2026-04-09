@@ -23,7 +23,7 @@
         nginx_reverse_proxy_debug: "{{ 'molecule-notest' in ansible_skip_tags }}"
         nginx_reverse_proxy_auth_info: |
           {% if _api_credentials %}
-          {{ [{'name': 'openwebui', 'username': _api_credentials[0], 'password': _api_credentials[1]}] }} 
+          {{ [{'name': 'api', 'username': _api_credentials[0], 'password': _api_credentials[1]}] }} 
           {% else %}
           {{ [{}] }}
           {% endif %}
