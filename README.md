@@ -16,7 +16,7 @@ You can request access to a catalog item that utilises this component [here](htt
 * [Ollama](https://ollama.com/) runs as a model backend on `http://localhost:3000`.
 * Open WebUI runs on `http://localhost:3000`.
 * Nginx reverse proxies inbound https to Open WebUI.
-  * If desired, the API is also reverse proxied under `http://<workspace_name>/ext/api`, allowing you to bypass SRAM authentication and use API keys to connect directly to the API.
+  * If desired, the [API](#API) can be reverse proxied at `http://<workspace_name>/ext/api`, allowing you to bypass SRAM authentication and use API keys to connect directly to the API.
 
 ### Authentication
 
@@ -28,7 +28,21 @@ Any members of the workspace's Collaborative Organisation (CO) will be able to a
 
 If desired, the Open WebUI [API](https://docs.openwebui.com/reference/monitoring/) is exposed by Nginx, without SRAM authentication. To do this, set the `expose_api` [parameter](#ResearchCloud-parameters) to `true`.
 
-If the API is enabled, then by default, **both normal users and admin users can use the API**. They will still need to [set API keys for your user in Open WebUI](https://docs.openwebui.com/features/authentication-access/api-keys/#step-3-generate-a-key), and use them when making requests. To allow **only admin users to use the API**, set the `normal_users_api_access` parameter to `false`.
+**Note**: the API is not served at the default `/api`, but at `/ext/api`. This is so that the normal `/api` route continues to work with SRAM auth, which is needed by the Open WebUI frontend.
+
+## API Authorization
+
+If the API is enabled, then by default, **both normal users and admin users can use the API**.
+
+Every use will need to [create an API keys in Open WebUI](https://docs.openwebui.com/features/authentication-access/api-keys/#step-3-generate-a-key), and use it when making requests.
+
+To allow **only admin users to use the API**, set the `normal_users_api_access` [parameter](#researchcloud-parameters) to `false`.
+
+## Additional API security
+
+By default, requests to `/ext/api` will be immediately proxied to Open WebUI---that is, without, any authentication layer in the webserver. However, Open WebUI still requires users to create API keys, and you will have to use these with your requests.
+
+If you want to add a layer of security, you can set the `api_credentials_secret` [parameter](#researchcloud-parameters) to add HTTP Basic Authentication to the API. Your requests will have to be made with the correct HTTP username/password headers, in addition to using the Open WebUI API keys.
 
 ## ResearchCloud parameters
 
@@ -38,6 +52,8 @@ The component takes the following parameters:
 * `ollama_version`: String. Version of Ollama to install, e.g. `0.17.7`. Leave empty for latest version.
 * `ollama_use_external_storage`: Boolean (default: `true`). In case this is true, and in case an SRC Storage Unit is attached to the workspace, will use that storage unit to store Ollama data (including models). This allows pulling larger models than fit on the workspace's internal storage.
 * `expose_api`: Boolean (default: `true`). Whether the reverse proxy should serve Open WebUI's API at the route `http://<workspace_name>/ext/api`. This will let through traffic to Open WebUI's API without SRAM authentication, allowing you to use the API from outside of the workspace for automated worklows.
+* `api_credentials_secret`: String. Username and password for HTTP Basic Authentication for the `/ext/api` route. Username and password should be separated by a space, e.g. `foo bar`. *Tip*: you can set this using a CO Secret in ResearchCloud.
+* `normal_users_api_access`: Boolean. Whether non-admin users should be allowed to use the API as well. Default: `true`. *Note*: at the moment all users that login via SRAM are considered admin users, so this parameter is not yet effective (see issue #19). 
 
 ## Maintenance
 
