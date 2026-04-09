@@ -3,7 +3,7 @@
   gather_facts: false
 
   tasks:
-    - name: Make sure API is up (and redirects to SRAM)
+    - name: Ensure API redirects to SRAM
       ansible.builtin.uri:
         url: "http://localhost:80/ext/api/version"
         follow_redirects: none
@@ -11,9 +11,23 @@
       register: openwebui_service_live
       until: "openwebui_service_live.status == 302"
       retries: 10
-      delay: 10 # check every 10 seconds for a maximum of 5 minutes
+      delay: 5
 
-    - name: Test app with and without auth
+    - name: Test app without auth
+      ansible.builtin.uri:
+        url: http://localhost:8080/api/v1/auths/signin
+        method: POST
+        status_code: "{{ item.expected }}"
+        follow_redirects: true
+        body_format: json
+        status_code: 400
+        body:
+          email: ""
+          password: ""
+      retries: 10
+      delay: 5
+  
+    - name: Test app with auth
       ansible.builtin.uri:
         url: http://localhost:8080/api/v1/auths/signin
         method: POST
@@ -23,9 +37,5 @@
         body:
           email: ""
           password: ""
-        headers: "{{ item.headers | default(omit) }}"
-      with_items:
-        - headers:
+        headers:
             X-Remote-User-Mail: testuser
-          expected: 200
-        - expected: 400 # bad request in case no trusted header is set
