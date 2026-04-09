@@ -5,7 +5,7 @@
   vars:
     _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
     _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
-    _api_credentials: "{{ (api_credentials.split | list) if api_credentials_secret is defined and (api_credentials_secret | length > 0) else omit }}"
+    _api_credentials: "{% (api_credentials.split | list) if api_credentials_secret is defined and (api_credentials_secret | length > 0) else omit %}"
     _expose_api: "{{ expose_api | default(false, true) | bool }}"
   gather_facts: true
   roles:
@@ -30,7 +30,7 @@
               X-Remote-User-Mail: $username@localhost
           - name: api
             location: /ext/api/ # serve the api under a special route to connect to it directly (instead of via the UI)
-            auth: "{{ 'sram' if not _expose_api else (_api_credentials is defined | ternary('basic', 'noauth')) }}"
+            auth: "{% 'sram' if not _expose_api else (_api_credentials is defined | ternary('basic', 'noauth')) %}"
             proxy_pass: http://localhost:8080/api/
             proxy_set_header:
               X-Remote-User-Mail: '""' # ensure outside clients cannot set a trusted header
