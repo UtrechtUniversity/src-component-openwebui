@@ -5,6 +5,7 @@
   vars:
     _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
     _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
+    _normal_users_api_access: "{{ normal_users_api_access | default(true, true) | bool }}"
     _api_credentials: "{{ (api_credentials_secret.split() | list) if api_credentials_secret is defined and (api_credentials_secret | length > 0) else false }}"
     _expose_api: "{{ expose_api | default(false, true) | bool }}"
     _openwebui_vhost:
@@ -32,6 +33,8 @@
       vars:
         openwebui_url: "{{ _openwebui_url }}"
         openwebui_port: 8080
+        openwebui_expose_api: "{{ _expose_api }}"
+        openwebui_user_access_api: "{{ _normal_users_api_access }}"
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_debug: "{{ 'molecule-notest' in ansible_skip_tags }}"
