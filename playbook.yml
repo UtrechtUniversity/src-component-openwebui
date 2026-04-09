@@ -5,8 +5,23 @@
   vars:
     _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
     _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
-    _expose_api: "{{ expose_api | default(true, true) | bool }}"
     _normal_users_api_access: "{{ normal_users_api_access | default(true, true) | bool }}"
+    _api_credentials: "{{ (api_credentials_secret.split() | list) if api_credentials_secret is defined and (api_credentials_secret | length > 0) else false }}"
+    _expose_api: "{{ expose_api | default(false, true) | bool }}"
+    _openwebui_vhost:
+      name: openwebui
+      location: /
+      auth: sram
+      proxy_pass: http://localhost:8080
+      proxy_set_header:
+        X-Remote-User-Mail: $username@localhost
+    _api_vhost:
+        name: api
+        location: /ext/api/ # serve the api under a special route to connect to it directly (instead of via the UI)
+        auth: "{{ 'sram' if not _expose_api else (_api_credentials | ternary('basic', 'noauth')) }}"
+        proxy_pass: http://localhost:8080/api/
+        proxy_set_header:
+          X-Remote-User-Mail: '""' # ensure outside clients cannot set a trusted header
   gather_facts: true
   roles:
     - role: ollama-serve
