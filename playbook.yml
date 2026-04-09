@@ -6,6 +6,10 @@
     _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
     _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
   gather_facts: true
+  pre_tasks:
+    - ansible.builtin.package:
+        name: libnginx-mod-http-lua
+        state: present
   roles:
     - role: ollama-serve
       vars:
@@ -25,6 +29,20 @@
             proxy_pass: http://localhost:8080
             proxy_set_header:
               X-Remote-User-Mail: $username@localhost
+            rewrite_by_lua_block: |
+              {
+                  local roles = ngx.var.src_roles or ""
+                  -- Add leading/trailing semicolons to ensure exact matching of whole roles
+                  local padded = ";" .. roles .. ";"
+              
+                  if padded:find(";src_co_admin;", 1, true) then
+                      ngx.var.remote_role = "admin"
+                  else
+                      ngx.var.remote_role = "user"
+                  end
+              }
+            proxy_set_header:
+              X-Remote-Role: "$remote_role"
           - name: api
             location: /ext/api/ # serve the api under a special route to connect to it directly (instead of via the UI)
             auth: "{{ expose_api | default(true, true) | bool | ternary('noauth', 'sram') }}"
