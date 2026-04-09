@@ -6,6 +6,7 @@
     _fqdn: "{{ workspace_fqdn | default('localhost:8080') }}" # workspace_fqdn is a special component parameter defined in SRC
     _openwebui_url: "{{ _fqdn is match 'localhost:' | ternary('http://', 'https://') }}{{ _fqdn }}"
     _expose_api: "{{ expose_api | default(true, true) | bool }}"
+    _normal_users_api_access: "{{ normal_users_api_access | default(true, true) | bool }}"
   gather_facts: true
   roles:
     - role: ollama-serve
@@ -18,7 +19,7 @@
         openwebui_url: "{{ _openwebui_url }}"
         openwebui_port: 8080
         openwebui_expose_api: "{{ _expose_api }}"
-        openwebui_user_access_api: "{{ normal_users_api_access }}"
+        openwebui_user_access_api: "{{ _normal_users_api_access }}"
     - role: uusrc.general.nginx_reverse_proxy
       vars:
         nginx_reverse_proxy_locations:
