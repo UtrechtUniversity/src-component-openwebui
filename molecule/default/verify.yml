@@ -6,6 +6,7 @@
     - name: Make sure API is up (and redirects to SRAM)
       ansible.builtin.uri:
         url: "http://localhost:80/ext/api/version"
+        follow_redirects: none
       register: openwebui_service_live
       until: "openwebui_service_live.status == 302"
       retries: 10
