@@ -7,9 +7,8 @@
       ansible.builtin.uri:
         url: "http://localhost:80/ext/api/version"
         follow_redirects: true
-        status_code: 401
       register: openwebui_service_live
-      until: "openwebui_service_live.status == 401"
+      until: "openwebui_service_live.location == 'http://localhost/oauth2_callback'"
       retries: 10
       delay: 10 # check every 10 seconds for a maximum of 5 minutes
 
