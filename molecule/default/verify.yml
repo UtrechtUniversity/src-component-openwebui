@@ -6,6 +6,8 @@
     - name: Make sure API is up (but not exposed)
       ansible.builtin.uri:
         url: "http://localhost:80/ext/api/version"
+        follow_redirects: true
+        status_code: 401
       register: openwebui_service_live
       until: "openwebui_service_live.status == 401"
       retries: 10
