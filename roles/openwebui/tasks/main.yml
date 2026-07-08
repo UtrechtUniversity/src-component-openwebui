@@ -1,4 +1,4 @@
-#SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: MIT-0
 ---
 # tasks file for openwebui
 # add user task
@@ -18,8 +18,8 @@
     uv_become_user: openwebui
     uv_venvs:
       - path: "{{ openwebui_venv }}"
-        python: '3.11'
-    uv_python_versions: [ '3.11' ]
+        python: "3.11"
+    uv_python_versions: ["3.11"]
 
 - name: Place requirements file # we place our openwebui requirements in a requirements.txt, so that we can keep them up to date with dependabot.
   ansible.builtin.copy:
