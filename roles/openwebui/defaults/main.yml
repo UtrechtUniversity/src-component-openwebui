@@ -1,4 +1,4 @@
-#SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: MIT-0
 ---
 # defaults file for openwebui
 openwebui_url: http://localhost:8080
@@ -13,6 +13,6 @@ openwebui_env:
   OLLAMA_BASE_URLS: http://localhost:11434
   DEFAULT_USER_ROLE: admin
   CORS_ALLOW_ORIGIN: "{{ openwebui_url }}"
-  USE_CUDA: True
+  USE_CUDA: true
   ENABLE_API_KEYS: "{{ openwebui_expose_api }}"
   USER_PERMISSIONS_FEATURES_API_KEYS: "{{ openwebui_user_access_api }}"

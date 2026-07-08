@@ -1,8 +1,9 @@
-#SPDX-License-Identifier: MIT-0
+---
+# SPDX-License-Identifier: MIT-0
 galaxy_info:
   author: Stefan Verhoeven & Dawa Ometto
   description: serve ollama
   license: MIT
-  min_ansible_version: 2.1
+  min_ansible_version: "2.1"
 dependencies:
   - uusrc.general.fact_workspace_info

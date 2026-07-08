@@ -1,8 +1,8 @@
-#SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: MIT-0
 ---
 # tasks file for ollama-serve
 
-- name: ollama user
+- name: Ollama user
   ansible.builtin.user:
     name: ollama
     system: true
@@ -17,7 +17,7 @@
     mode: "0755"
   with_items:
     - /opt/ollama
-    - "{{ ollama_serve_model_storage_path }}" # can be different from /opt/ollama if external storage is used
+    - "{{ ollama_serve_storage_path }}" # can be different from /opt/ollama if external storage is used
 
 - name: Install zstd for unarchiving # ollama is served as a zstd file, Ansible's unarchive module depends on this package.
   ansible.builtin.package:
