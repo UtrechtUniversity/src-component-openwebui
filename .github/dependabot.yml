@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      - dependency-name: "*"
+      - dependency-name: "open-webui"
         update-types:
           - "version-update:semver-minor"
           - "version-update:semver-patch"
