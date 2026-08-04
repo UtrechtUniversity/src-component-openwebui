@@ -24,12 +24,6 @@ provisioner:
       remote_tmp: /tmp
   env:
     variable_host: all
-    components:
-      - name: openwebui
-        path: playbook.yml
-        parameters:
-          model: "" # don't pull a model in CI
-          workspace_fqdn: localhost
 scenario:
   test_sequence:
     - dependency
