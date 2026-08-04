@@ -4,10 +4,7 @@ driver:
   image_settings: &image_settings
     pre_build_image: true
     registry:
-      url: $DOCKER_REGISTRY
-      credentials:
-        username: $DOCKER_USER
-        password: $DOCKER_PW
+      url: ghcr.io
 platforms:
   - name: workspace-src-ubuntu_noble
     image: ghcr.io/utrechtuniversity/src-test-workspace:ubuntu_noble-nginx
@@ -24,14 +21,6 @@ provisioner:
       remote_tmp: /tmp
   env:
     variable_host: all
-    components:
-      - name: openwebui
-        path: playbook.yml
-        parameters:
-          api_credentials_secret: foo bar
-          expose_api: true
-          model: "" # don't pull a model in CI
-          workspace_fqdn: localhost
 scenario:
   test_sequence:
     - dependency
