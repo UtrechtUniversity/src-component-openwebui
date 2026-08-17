@@ -25,25 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ANSIBLE_FORCE_COLOR: '0' # ANSI coloring breaks GitHub's ability to mask GH secrets in logs.      ANSIBLE_RESULT_FORMAT: yaml
-      CRUN_VER: 1.11.2
       REQUIREMENTS_FILE: molecule/ext/molecule-src/requirements.txt
       GALAXY_REQUIREMENTS_FILE: molecule/ext/molecule-src/requirements.yml
       MOLECULE_FILE: molecule/ext/molecule-src/molecule.yml
     steps:
-      - name: Workaround crun issue on ubuntu
-        run: |
-          mkdir -p "${HOME}/.local/bin"
-          curl -L "https://github.com/containers/crun/releases/download/${CRUN_VER}/crun-${CRUN_VER}-linux-amd64" -o "${HOME}/.local/bin/crun"
-          chmod +x "${HOME}/.local/bin/crun"
-          crun --version
-          mkdir -p "${HOME}/.config/containers"
-          cat << EOF > "${HOME}/.config/containers/containers.conf"
-          [engine.runtimes]
-          crun = [
-            "${HOME}/.local/bin/crun",
-            "/usr/bin/crun"
-          ]
-          EOF
       - name: Checkout
         uses: actions/checkout@v7
         with:
