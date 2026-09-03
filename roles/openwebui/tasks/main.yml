@@ -10,6 +10,11 @@
     createhome: true
     home: "{{ openwebui_home }}"
 
+- name: Install ffmpeg
+  ansible.builtin.apt:
+    name: ffmpeg
+    state: present
+
 - name: Install uv
   ansible.builtin.include_role:
     name: uusrc.general.uv
