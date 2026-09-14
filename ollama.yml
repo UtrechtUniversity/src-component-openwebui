@@ -1,0 +1,11 @@
+---
+- name: Install and configure ollama
+  hosts:
+    - all
+  gather_facts: true
+  roles:
+    - role: ollama-serve
+      vars:
+        ollama_serve_model: "{{ model }}"
+        ollama_serve_version: "{{ ollama_version | default('') }}"
+        ollama_serve_use_external_storage: "{{ ollama_use_external_storage | default(true, true) | bool }}"
