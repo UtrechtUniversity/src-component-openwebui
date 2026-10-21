@@ -11,7 +11,7 @@
     home: "{{ openwebui_home }}"
 
 - name: Install ffmpeg
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: ffmpeg
     state: present
 
